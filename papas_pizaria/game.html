@@ -21,5 +21,14 @@
 <body>
   <h1>Papas_pizaria</h1>
   <object data="papaspizzeria_v2.swf" type="application/x-shockwave-flash"></object>
+  <script src="../ruffle.js"></script>
+<div id="container"></div>
+<script>
+    const ruffle = window.RufflePlayer.newest();
+    const player = ruffle.createPlayer();
+    document.getElementById("container").appendChild(player);
+    player.load("papaspizzeria_v2.swf");
+</script>
+
 </body>
 </html>
