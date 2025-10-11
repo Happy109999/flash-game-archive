@@ -1,64 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa's Pizzeria</title>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            font-family: sans-serif;
-        }
-        #container {
-            width: 800px;
-            height: 600px;
-            margin: 20px auto;
-            border: 2px solid #fff;
-        }
-        h1 {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .back-button {
-            background-color: #000;
-            color: #fff;
-            border: 2px solid #fff;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .back-button:hover {
-            background-color: #fff;
-            color: #000;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papa's Pizzeria</title>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      margin: 20px;
+      font-size: 2em;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    #container {
+      width: 800px;
+      height: 600px;
+      border: 2px solid #fff;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Papa's Pizzeria</h1>
-    <button class="back-button" onclick="window.location.href='https://happy109999.github.io/flash-game-archive/'">
-        ⬅ Back to Main Menu
-    </button>
+  <h1>Papa's Pizzeria</h1>
 
-    <div id="container"></div>
+  <div class="controls">
+    <a href="https://happy109999.github.io/flash-game-archive/" class="button">⬅ Back to Main Menu</a>
+    <button id="fullscreen-btn" class="button">⛶ Fullscreen</button>
+  </div>
 
-    <script>
-        const ruffle = window.RufflePlayer.newest();
-        const player = ruffle.createPlayer();
-        player.style.width = "100%";
-        player.style.height = "100%";
-        document.getElementById("container").appendChild(player);
-        player.load("papaspizzeria_v2.swf");
-    </script>
+  <div id="container"></div>
+
+  <script>
+    // Create Ruffle player
+    const ruffle = window.RufflePlayer.newest();
+    const player = ruffle.createPlayer();
+    player.style.width = "100%";
+    player.style.height = "100%";
+    document.getElementById("container").appendChild(player);
+    player.load("papaspizzeria_v2.swf");
+
+    // Fullscreen button
+    document.getElementById("fullscreen-btn").addEventListener("click", () => {
+      if (player.requestFullscreen) {
+        player.requestFullscreen();
+      } else if (player.webkitRequestFullscreen) {
+        player.webkitRequestFullscreen();
+      } else if (player.msRequestFullscreen) {
+        player.msRequestFullscreen();
+      }
+    });
+  </script>
 </body>
 </html>
 
