@@ -1,58 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>papas hotdoggeria</title>
-    <!-- Ruffle CDN -->
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-    <style>
-        /* Make the body black and center the game */
-        body {
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            font-family: sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papa's Hotdogria on Flash archive</title>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+    }
 
-        /* Container for the game */
-        #container {
-            width: 800px;   /* change width as needed */
-            height: 600px;  /* change height as needed */
-            margin: 20px auto;
-            border: 2px solid #fff; /* optional white border */
-        }
+    h1 {
+      margin: 20px;
+      font-size: 2em;
+    }
 
-        h1 {
-            margin-top: 20px;
-            text-align: center;
-        }
-    </style>
+    .button {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    #container {
+      width: 800px;
+      height: 600px;
+      border: 2px solid #fff;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>papas hotdoggeria</h1>
-    <!-- Container where the Ruffle player will appear -->
-    <div id="container"></div>
+  <h1>Papa's Hotdogria</h1>
 
-    <script>
-        // Create a new Ruffle player
-        const ruffle = window.RufflePlayer.newest();
-        const player = ruffle.createPlayer();
+  <div class="controls">
+    <a href="https://happy109999.github.io/flash-game-archive/" class="button">⬅ Back to Main Menu</a>
+    <button id="fullscreen-btn" class="button">⛶ Fullscreen</button>
+  </div>
 
-        // Make player fill the container
-        player.style.width = "100%";
-        player.style.height = "100%";
+  <div id="container"></div>
 
-        // Attach player to container
-        document.getElementById("container").appendChild(player);
+  <script>
+    // Create Ruffle player
+    const ruffle = window.RufflePlayer.newest();
+    const player = ruffle.createPlayer();
+    player.style.width = "100%";
+    player.style.height = "100%";
+    document.getElementById("container").appendChild(player);
+    player.load("papashotdoggeria.swf");
 
-        // Load your SWF file
-        player.load("papashotdoggeria.swf"); // replace with your SWF filename
-    </script>
+    // Fullscreen button
+    document.getElementById("fullscreen-btn").addEventListener("click", () => {
+      if (player.requestFullscreen) {
+        player.requestFullscreen();
+      } else if (player.webkitRequestFullscreen) {
+        player.webkitRequestFullscreen();
+      } else if (player.msRequestFullscreen) {
+        player.msRequestFullscreen();
+      }
+    });
+  </script>
 </body>
 </html>
+
