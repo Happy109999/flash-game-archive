@@ -127,18 +127,18 @@
   <div id="container"></div>
 
   <script>
-  
+    
   function acceptDisclaimer() {
     document.getElementById("disclaimer").style.display = "none";
   }
-</script>
+
     // Create Ruffle player
     const ruffle = window.RufflePlayer.newest();
     const player = ruffle.createPlayer();
     player.style.width = "100%";
     player.style.height = "100%";
     document.getElementById("container").appendChild(player);
-    player.load("papaspizzeria_v2.swf");
+    player.load("Super Mario Flash.swf");
 
     // Fullscreen button
     document.getElementById("fullscreen-btn").addEventListener("click", () => {
