@@ -1,89 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Papa's Pizzeria</title>
-  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      font-family: sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Super Mario Flash</title>
 
-    h1 {
-      margin: 20px;
-      font-size: 2em;
-    }
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 
-    .button {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      color: #fff;
-      border: 2px solid #fff;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-      cursor: pointer;
-    }
+<style>
+  body {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+  }
 
-    .button:hover {
-      background-color: #fff;
-      color: #000;
-    }
+  h1 {
+    margin: 20px;
+    font-size: 2em;
+  }
 
-    #container {
-      width: 800px;
-      height: 600px;
-      border: 2px solid #fff;
-    }
+  .button {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    text-decoration: none;
+  }
 
-    .controls {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-  </style>
+  .button:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  #container {
+    width: 800px;
+    height: 600px;
+    border: 2px solid #fff;
+    background: #000;
+    overflow: hidden; /* IMPORTANT: prevents off-stage leaks */
+  }
+
+  /* Mario IP disclaimer (toast style) */
+  #disclaimer {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    max-width: 320px;
+    padding: 15px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    background: #000;
+    font-size: 0.85em;
+    z-index: 9999;
+  }
+
+  #disclaimer button {
+    float: right;
+    border: none;
+    background: none;
+    color: #fff;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+</style>
 </head>
+
 <body>
-  <h1>Papa's Pizzeria</h1>
 
-  <div class="controls">
-    <a href="https://happy109999.github.io/flash-game-archive/" class="button">⬅ Back to Main Menu</a>
-    <button id="fullscreen-btn" class="button">⛶ Fullscreen</button>
-  </div>
+<h1>Super Mario Flash</h1>
 
-  <div id="container"></div>
+<div class="controls">
+  <a href="https://happy109999.github.io/flash-game-archive/" class="button">
+    ⬅ Back to Main Menu
+  </a>
+  <button id="fullscreen-btn" class="button">⛶ Fullscreen</button>
+</div>
 
-  <script>
-    // Create Ruffle player
-    const ruffle = window.RufflePlayer.newest();
-    const player = ruffle.createPlayer();
-    player.style.width = "100%";
-    player.style.height = "100%";
-    document.getElementById("container").appendChild(player);
-    player.load("papaspizzeria_v2.swf");
+<div id="container"></div>
 
-    // Fullscreen button
-    document.getElementById("fullscreen-btn").addEventListener("click", () => {
-      if (player.requestFullscreen) {
-        player.requestFullscreen();
-      } else if (player.webkitRequestFullscreen) {
-        player.webkitRequestFullscreen();
-      } else if (player.msRequestFullscreen) {
-        player.msRequestFullscreen();
-      }
-    });
-  </script>
+<!-- Mario Disclaimer -->
+<div id="disclaimer">
+  <button id="close-disclaimer">✖</button>
+  <strong>Mario Disclaimer</strong><br>
+  This is an old, discontinued Flash game featuring characters owned by
+  Nintendo. This website is not affiliated with or endorsed by Nintendo.
+</div>
+
+<script>
+  // Create Ruffle player
+  const ruffle = window.RufflePlayer.newest();
+  const player = ruffle.createPlayer();
+  player.style.width = "100%";
+  player.style.height = "100%";
+
+  const container = document.getElementById("container");
+  container.appendChild(player);
+
+  // Load the Mario SWF
+  player.load("super_mario_flash.swf"); // <-- change if needed
+
+  // Fullscreen the CONTAINER (correct way)
+  document.getElementById("fullscreen-btn").addEventListener("click", () => {
+    if (container.requestFullscreen) {
+      container.requestFullscreen();
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen();
+    }
+  });
+
+  // Disclaimer close
+  const disclaimer = document.getElementById("disclaimer");
+  document.getElementById("close-disclaimer").addEventListener("click", () => {
+    disclaimer.style.display = "none";
+  });
+
+  // Auto-hide disclaimer after 10 seconds
+  setTimeout(() => {
+    disclaimer.style.display = "none";
+  }, 10000);
+</script>
+
 </body>
 </html>
-
