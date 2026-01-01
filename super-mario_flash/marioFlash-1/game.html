@@ -50,15 +50,26 @@
     margin-bottom: 10px;
   }
 
+  /* OUTER CONTAINER (fullscreen target) */
   #container {
     width: 800px;
     height: 600px;
     border: 2px solid #fff;
     background: #000;
-    overflow: hidden; /* IMPORTANT: prevents off-stage leaks */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Mario IP disclaimer (toast style) */
+  /* INNER GAME (fixed Flash size) */
+  #game {
+    width: 800px;
+    height: 600px;
+    background: #000;
+  }
+
+  /* Mario IP disclaimer */
   #disclaimer {
     position: fixed;
     right: 20px;
@@ -94,7 +105,9 @@
   <button id="fullscreen-btn" class="button">⛶ Fullscreen</button>
 </div>
 
-<div id="container"></div>
+<div id="container">
+  <div id="game"></div>
+</div>
 
 <!-- Mario Disclaimer -->
 <div id="disclaimer">
@@ -108,23 +121,21 @@
   // Create Ruffle player
   const ruffle = window.RufflePlayer.newest();
   const player = ruffle.createPlayer();
-  player.style.width = "100%";
-  player.style.height = "100%";
 
+  // IMPORTANT: fixed Flash resolution
+  player.style.width = "800px";
+  player.style.height = "600px";
+
+  document.getElementById("game").appendChild(player);
+
+  // Load SWF
+  player.load("Super Mario Flash.swf");
+
+  // Fullscreen OUTER container (letterboxed)
   const container = document.getElementById("container");
-  container.appendChild(player);
-
-  // Load the Mario SWF
-  player.load("Super Mario Flash.swf"); // <-- change if needed
-
-  // Fullscreen the CONTAINER (correct way)
   document.getElementById("fullscreen-btn").addEventListener("click", () => {
     if (container.requestFullscreen) {
       container.requestFullscreen();
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen();
-    } else if (container.msRequestFullscreen) {
-      container.msRequestFullscreen();
     }
   });
 
