@@ -1,1 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super mario falsh 1</title>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+    }
 
+    h1 {
+      margin: 20px;
+      font-size: 2em;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #fff;
+      color: #000;
+    }
+<!-- Disclaimer Popup -->
+<div id="disclaimer">
+  <div class="disclaimer-box">
+    <h2>Disclaimer</h2>
+    <p>
+      This game (<strong>Super Mario Flash</strong>) is an old, discontinued fan-made Flash game.
+    </p>
+    <p>
+      Mario and related characters are the property of <strong>Nintendo</strong>.
+      This game is preserved for <strong>historical and archival purposes only</strong>.
+    </p>
+    <p>
+      No ownership or affiliation with Nintendo is claimed.
+    </p>
+    <button onclick="acceptDisclaimer()">I Understand</button>
+  </div>
+</div>
+
+    #container {
+      width: 800px;
+      height: 600px;
+      border: 2px solid #fff;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+  <style>
+  #disclaimer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .disclaimer-box {
+    background: #111;
+    color: white;
+    border: 2px solid white;
+    padding: 25px;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 12px;
+  }
+
+  .disclaimer-box h2 {
+    margin-top: 0;
+  }
+
+  .disclaimer-box button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+
+  .disclaimer-box button:hover {
+    background: white;
+    color: black;
+  }
+</style>
+
+</head>
+<body>
+  <h1>Super mario Flash</h1>
+
+  <div class="controls">
+    <a href="https://happy109999.github.io/flash-game-archive/" class="button">⬅ Back to Main Menu</a>
+    <button id="fullscreen-btn" class="button">⛶ Fullscreen</button>
+  </div>
+
+  <div id="container"></div>
+
+  <script>
+  
+  function acceptDisclaimer() {
+    document.getElementById("disclaimer").style.display = "none";
+  }
+</script>
+    // Create Ruffle player
+    const ruffle = window.RufflePlayer.newest();
+    const player = ruffle.createPlayer();
+    player.style.width = "100%";
+    player.style.height = "100%";
+    document.getElementById("container").appendChild(player);
+    player.load("papaspizzeria_v2.swf");
+
+    // Fullscreen button
+    document.getElementById("fullscreen-btn").addEventListener("click", () => {
+      if (player.requestFullscreen) {
+        player.requestFullscreen();
+      } else if (player.webkitRequestFullscreen) {
+        player.webkitRequestFullscreen();
+      } else if (player.msRequestFullscreen) {
+        player.msRequestFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>
